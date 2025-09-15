@@ -1,44 +1,37 @@
 from selenium.webdriver.common.by import By
 from data import URL
+from locators import personal_account_locators as pap
 from pages.base_page import BasePage
 import allure
 
 
 class PersonalAccount(BasePage):
 
-    BUTTON_ACCOUNT = (By.XPATH, "//*[contains(text(), 'Личный Кабинет')]")
-    BUTTON_HISTORY_PROFILE = (By.XPATH, "//a[text()='История заказов']")
-    BUTTON_SAVE = (By.XPATH, "//button[@class='button_button__33qZ0 button_button_type_primary__1O7Bx button_button_size_medium__3zxIa']")
-    INPUT_EMAIL = (By.XPATH, "//label[text() = 'Email']/../input")
-    INPUT_PASSWORD = (By.XPATH, "//label[text() = 'Пароль']/../input")
-    BUTTON_ENTER = (By.XPATH, "//button[text()='Войти']")
-    EXIT_BUTTON = (By.XPATH, "//button[text()='Выход']")
-
     @allure.step('Клик по кнопке "История заказов"')
     def click_history_profile(self):
-        self.click(self.BUTTON_HISTORY_PROFILE)
+        self.click(pap.BUTTON_HISTORY_PROFILE)
 
     @allure.step('Клик по кнопке "Выход"')
     def click_exit_button(self):
-        self.click(self.EXIT_BUTTON)
+        self.click(pap.EXIT_BUTTON)
 
     @allure.step('Клик по кнопке "Личный кабинет"')
     def click_button_personal_account(self):
-        self.click(self.BUTTON_ACCOUNT)
+        self.click(pap.BUTTON_ACCOUNT)
 
     @allure.step('Заполнения поля почты')
     def set_email_input(self, email):
-        email_input = self.wait_and_find_element(self.INPUT_EMAIL)
+        email_input = self.wait_and_find_element(pap.INPUT_EMAIL)
         email_input.send_keys(email)
 
     @allure.step('Заполнение поля пароля')
     def set_password_input(self, password):
-        email_input = self.wait_and_find_element(self.INPUT_PASSWORD)
+        email_input = self.wait_and_find_element(pap.INPUT_PASSWORD)
         email_input.send_keys(password)
 
     @allure.step('Клик по кнопке "Войти"')
     def click_enter_button(self):
-        self.click(self.BUTTON_ENTER)
+        self.click(pap.BUTTON_ENTER)
 
     @allure.step('Ожидание смены страницы логина')
     def wait_for_url_changes_login(self):
@@ -66,4 +59,4 @@ class PersonalAccount(BasePage):
 
     @allure.step('Поиск текста кнопки "Сохранить"')
     def save_button_present(self):
-        return self.find_text(self.BUTTON_SAVE)
+        return self.find_text(pap.BUTTON_SAVE)
